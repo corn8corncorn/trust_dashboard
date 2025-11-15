@@ -7,7 +7,10 @@
         <Row :gutter="16">
           <Col span="12">
             <FormItem label="契約編號">
-              <Input v-model="searchForm.contractNo" placeholder="請輸入契約編號" />
+              <Input
+                v-model="searchForm.contractNo"
+                placeholder="請輸入契約編號"
+              />
             </FormItem>
           </Col>
           <Col span="12">
@@ -33,7 +36,9 @@
                     style="width: 100%"
                   />
                 </Col>
-                <Col span="2" style="text-align: center; line-height: 32px">~</Col>
+                <Col span="2" style="text-align: center; line-height: 32px"
+                  >~</Col
+                >
                 <Col span="11">
                   <DatePicker
                     v-model="searchForm.contractEndDate"
@@ -47,7 +52,10 @@
           </Col>
           <Col span="12">
             <FormItem label="契約案名">
-              <Input v-model="searchForm.caseName" placeholder="請輸入契約案名" />
+              <Input
+                v-model="searchForm.caseName"
+                placeholder="請輸入契約案名"
+              />
             </FormItem>
           </Col>
         </Row>
@@ -60,7 +68,15 @@
                 placeholder="員編（查詢）"
                 style="width: calc(100% - 80px)"
               />
-              <Button type="primary" style="margin-left: 8px" @click="queryStaff">查詢</Button>
+              <Tooltip content="查詢" transfer>
+                <Button
+                  type="primary"
+                  style="margin-left: 8px"
+                  @click="queryStaff"
+                >
+                  <Icon type="ios-search" />
+                </Button>
+              </Tooltip>
             </FormItem>
           </Col>
           <Col span="12">
@@ -74,7 +90,9 @@
                     style="width: 100%"
                   />
                 </Col>
-                <Col span="2" style="text-align: center; line-height: 32px">~</Col>
+                <Col span="2" style="text-align: center; line-height: 32px"
+                  >~</Col
+                >
                 <Col span="11">
                   <DatePicker
                     v-model="searchForm.cancelEndDate"
@@ -91,7 +109,10 @@
         <Row :gutter="16">
           <Col span="12">
             <FormItem label="委託人 ID">
-              <Input v-model="searchForm.clientId" placeholder="請輸入委託人 ID" />
+              <Input
+                v-model="searchForm.clientId"
+                placeholder="請輸入委託人 ID"
+              />
             </FormItem>
           </Col>
           <Col span="12">
@@ -115,7 +136,10 @@
           </Col>
           <Col span="12">
             <FormItem label="土地坐落">
-              <Input v-model="searchForm.landLocation" placeholder="請輸入土地坐落" />
+              <Input
+                v-model="searchForm.landLocation"
+                placeholder="請輸入土地坐落"
+              />
             </FormItem>
           </Col>
         </Row>
@@ -134,24 +158,53 @@
 
         <Row>
           <Col span="24" style="text-align: center; margin-top: 1rem">
-            <Button type="primary" size="large" style="margin-right: 8px" @click="createNew">
+            <Button
+              type="primary"
+              size="large"
+              style="margin-right: 8px"
+              @click="createNew"
+            >
               建立新契約
             </Button>
-            <Button type="primary" size="large" style="margin-right: 8px" @click="handleSearch">
+            <Button
+              type="primary"
+              size="large"
+              style="margin-right: 8px"
+              @click="handleSearch"
+            >
               查詢
             </Button>
-            <Button size="large" style="margin-right: 8px" @click="handleClear">清空</Button>
-            <Button type="success" size="large" @click="handleExport">匯出 Excel 檔</Button>
+            <Button size="large" style="margin-right: 8px" @click="handleClear"
+              >清空</Button
+            >
+            <Button type="success" size="large" @click="handleExport"
+              >匯出 Excel 檔</Button
+            >
           </Col>
         </Row>
       </Form>
     </Card>
 
     <!-- 搜尋結果表格 -->
-    <Card class="result-table-card" :bordered="false" v-if="searchResults.length > 0">
+    <Card
+      class="result-table-card"
+      :bordered="false"
+      v-if="searchResults.length > 0"
+    >
       <div slot="title" class="card-title">契約主檔</div>
-      <Table :columns="tableColumns" :data="searchResults" border stripe></Table>
+      <Table
+        :columns="tableColumns"
+        :data="searchResults"
+        border
+        stripe
+      ></Table>
     </Card>
+
+    <!-- 建立新契約 Modal -->
+    <CreateContractModal
+      v-model="showCreateModal"
+      @submit="handleContractSubmit"
+    />
 
     <!-- 契約檔案 Modal -->
     <Modal
@@ -180,24 +233,30 @@
 </template>
 
 <script>
+import CreateContractModal from "../components/CreateContractModal.vue";
+
 export default {
-  name: 'BasicDataView',
+  name: "BasicDataView",
+  components: {
+    CreateContractModal,
+  },
   data() {
     return {
+      showCreateModal: false,
       searchForm: {
-        contractNo: '',
-        unit: '',
-        contractStartDate: '',
-        contractEndDate: '',
-        caseName: '',
-        staffNo: '',
-        cancelStartDate: '',
-        cancelEndDate: '',
-        clientId: '',
+        contractNo: "",
+        unit: "",
+        contractStartDate: "",
+        contractEndDate: "",
+        caseName: "",
+        staffNo: "",
+        cancelStartDate: "",
+        cancelEndDate: "",
+        clientId: "",
         feeStatus: [],
-        closeStatus: '未結案',
-        landLocation: '',
-        docStatus: ''
+        closeStatus: "未結案",
+        landLocation: "",
+        docStatus: "",
       },
       searchResults: [],
       fileModalVisible: false,
@@ -205,227 +264,232 @@ export default {
       contractFiles: [],
       tableColumns: [
         {
-          title: '契約主檔',
-          key: 'file',
-          align: 'center',
+          title: "契約主檔",
+          key: "file",
+          align: "center",
           width: 100,
           render: (h, params) => {
             return h(
-              'Button',
+              "Button",
               {
                 props: {
-                  type: 'primary',
-                  size: 'small'
+                  type: "primary",
+                  size: "small",
                 },
                 on: {
                   click: () => {
                     this.openFileModal(params.row);
-                  }
-                }
+                  },
+                },
               },
-              '主檔'
+              "主檔"
             );
-          }
+          },
         },
         {
-          title: '契約編號',
-          key: 'contractNo',
-          align: 'center',
-          width: 150
+          title: "契約編號",
+          key: "contractNo",
+          align: "center",
+          width: 150,
         },
         {
-          title: '契約案名',
-          key: 'caseName',
-          align: 'center',
-          minWidth: 150
+          title: "契約案名",
+          key: "caseName",
+          align: "center",
+          minWidth: 150,
         },
         {
-          title: '簽約日',
-          key: 'contractDate',
-          align: 'center',
-          width: 120
+          title: "簽約日",
+          key: "contractDate",
+          align: "center",
+          width: 120,
         },
         {
-          title: '招攬單位',
-          key: 'unit',
-          align: 'center',
-          width: 120
+          title: "招攬單位",
+          key: "unit",
+          align: "center",
+          width: 120,
         },
         {
-          title: '經辦人員',
-          key: 'staff',
-          align: 'center',
-          width: 150
+          title: "經辦人員",
+          key: "staff",
+          align: "center",
+          width: 150,
         },
         {
-          title: '信託手續費',
-          key: 'trustFee',
-          align: 'right',
-          width: 120
+          title: "信託手續費",
+          key: "trustFee",
+          align: "center",
+          width: 120,
         },
         {
-          title: '已收帳款',
-          key: 'received',
-          align: 'right',
-          width: 120
+          title: "已收帳款",
+          key: "received",
+          align: "center",
+          width: 120,
         },
         {
-          title: '應收但未收帳款',
-          key: 'unreceived',
-          align: 'right',
-          width: 150
+          title: "應收但未收帳款",
+          key: "unreceived",
+          align: "center",
+          width: 150,
         },
         {
-          title: '結案日',
-          key: 'closeDate',
-          align: 'center',
-          width: 120
+          title: "結案日",
+          key: "closeDate",
+          align: "center",
+          width: 120,
         },
         {
-          title: '備註',
-          key: 'remark',
-          align: 'center',
-          minWidth: 150
-        }
+          title: "備註",
+          key: "remark",
+          align: "center",
+          minWidth: 150,
+        },
       ],
       fileColumns: [
         {
-          title: '檔案名稱',
-          key: 'fileName',
-          align: 'left',
-          minWidth: 200
+          title: "檔案名稱",
+          key: "fileName",
+          align: "left",
+          minWidth: 200,
         },
         {
-          title: '檔案類型',
-          key: 'fileType',
-          align: 'center',
-          width: 120
+          title: "檔案類型",
+          key: "fileType",
+          align: "center",
+          width: 120,
         },
         {
-          title: '上傳日期',
-          key: 'uploadDate',
-          align: 'center',
-          width: 150
+          title: "上傳日期",
+          key: "uploadDate",
+          align: "center",
+          width: 150,
         },
         {
-          title: '檔案大小',
-          key: 'fileSize',
-          align: 'right',
-          width: 120
+          title: "檔案大小",
+          key: "fileSize",
+          align: "right",
+          width: 120,
         },
         {
-          title: '操作',
-          key: 'action',
-          align: 'center',
+          title: "操作",
+          key: "action",
+          align: "center",
           width: 150,
           render: (h, params) => {
-            return h('div', [
+            return h("div", [
               h(
-                'Button',
+                "Button",
                 {
                   props: {
-                    type: 'primary',
-                    size: 'small',
-                    style: { marginRight: '8px' }
+                    type: "primary",
+                    size: "small",
+                    style: { marginRight: "8px" },
                   },
                   on: {
                     click: () => {
                       this.downloadFile(params.row);
-                    }
-                  }
+                    },
+                  },
                 },
-                '下載'
+                "下載"
               ),
               h(
-                'Button',
+                "Button",
                 {
                   props: {
-                    type: 'error',
-                    size: 'small'
+                    type: "error",
+                    size: "small",
                   },
                   on: {
                     click: () => {
                       this.deleteFile(params.row);
-                    }
-                  }
+                    },
+                  },
                 },
-                '刪除'
-              )
+                "刪除"
+              ),
             ]);
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   },
   methods: {
     queryStaff() {
-      this.$Message.info('查詢經辦人員功能');
+      this.$Message.info("查詢經辦人員功能");
     },
     createNew() {
-      this.$Message.info('建立新契約功能');
+      this.showCreateModal = true;
+    },
+    handleContractSubmit(formData) {
+      console.log("契約建檔資料：", formData);
+      this.$Message.success("契約建檔成功");
+      // 這裡可以實作實際的儲存邏輯
     },
     handleSearch() {
       // 模擬搜尋結果
       this.searchResults = [
         {
-          contractNo: 'F102001A0000',
-          caseName: 'xxx',
-          contractDate: '2024/01/15',
-          unit: '分行',
-          staff: '員編-姓名',
-          trustFee: '5,000',
-          received: '5,000',
-          unreceived: '5,000',
-          closeDate: '',
-          remark: ''
-        }
+          contractNo: "F102001A0000",
+          caseName: "xxx",
+          contractDate: "2024/01/15",
+          unit: "分行",
+          staff: "員編-姓名",
+          trustFee: "5,000",
+          received: "5,000",
+          unreceived: "5,000",
+          closeDate: "",
+          remark: "",
+        },
       ];
-      this.$Message.success('查詢完成');
+      this.$Message.success("查詢完成");
     },
     handleClear() {
       this.searchForm = {
-        contractNo: '',
-        unit: '',
-        contractStartDate: '',
-        contractEndDate: '',
-        caseName: '',
-        staffNo: '',
-        cancelStartDate: '',
-        cancelEndDate: '',
-        clientId: '',
+        contractNo: "",
+        unit: "",
+        contractStartDate: "",
+        contractEndDate: "",
+        caseName: "",
+        staffNo: "",
+        cancelStartDate: "",
+        cancelEndDate: "",
+        clientId: "",
         feeStatus: [],
-        closeStatus: '未結案',
-        landLocation: '',
-        docStatus: ''
+        closeStatus: "未結案",
+        landLocation: "",
+        docStatus: "",
       };
       this.searchResults = [];
-      this.$Message.info('已清空表單');
+      this.$Message.info("已清空表單");
     },
     handleExport() {
-      this.$Message.info('匯出 Excel 檔功能');
+      this.$Message.info("匯出 Excel 檔功能");
     },
     openFileModal(contract) {
       this.currentContract = contract;
       // 模擬載入該契約的檔案列表
       this.contractFiles = [
         {
-          fileName: '契約書.pdf',
-          fileType: 'PDF',
-          uploadDate: '2024/01/15',
-          fileSize: '2.5 MB'
+          fileName: "契約書.pdf",
+          fileType: "PDF",
+          uploadDate: "2024/01/15",
+          fileSize: "2.5 MB",
         },
         {
-          fileName: '委託人身份證明.pdf',
-          fileType: 'PDF',
-          uploadDate: '2024/01/16',
-          fileSize: '1.2 MB'
+          fileName: "委託人身份證明.pdf",
+          fileType: "PDF",
+          uploadDate: "2024/01/16",
+          fileSize: "1.2 MB",
         },
         {
-          fileName: '土地登記謄本.pdf',
-          fileType: 'PDF',
-          uploadDate: '2024/01/17',
-          fileSize: '3.8 MB'
-        }
+          fileName: "土地登記謄本.pdf",
+          fileType: "PDF",
+          uploadDate: "2024/01/17",
+          fileSize: "3.8 MB",
+        },
       ];
       this.fileModalVisible = true;
     },
@@ -440,18 +504,20 @@ export default {
     },
     deleteFile(file) {
       this.$Modal.confirm({
-        title: '確認刪除',
+        title: "確認刪除",
         content: `確定要刪除檔案「${file.fileName}」嗎？`,
         onOk: () => {
-          const index = this.contractFiles.findIndex((f) => f.fileName === file.fileName);
+          const index = this.contractFiles.findIndex(
+            (f) => f.fileName === file.fileName
+          );
           if (index > -1) {
             this.contractFiles.splice(index, 1);
-            this.$Message.success('檔案已刪除');
+            this.$Message.success("檔案已刪除");
           }
-        }
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -503,4 +569,3 @@ export default {
   }
 }
 </style>
-
