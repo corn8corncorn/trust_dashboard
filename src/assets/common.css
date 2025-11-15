@@ -1,0 +1,126 @@
+:root {
+  font-size: 16px;
+  color: #1f2d3d;
+  font-family: 'Noto Sans TC', 'Segoe UI', 'Microsoft JhengHei', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f5f7fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+#app {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f8ec7 0%, #35c0c5 100%);
+}
+
+.main-wrapper {
+  padding: 1rem;
+}
+
+.content-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(15, 142, 199, 0.08);
+}
+
+.table-block {
+  margin-top: 1rem;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 16px rgba(31, 45, 61, 0.08);
+  overflow-x: auto;
+}
+
+.table-block + .table-block {
+  margin-top: 1.5rem;
+}
+
+.table-title {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #1f2d3d;
+}
+
+.welcome-text {
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  color: #3c4858;
+}
+
+.nav-bar {
+  margin-top: 1rem;
+}
+
+.nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.nav-tab {
+  flex: 1 1 140px;
+}
+
+.placeholder-card {
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.placeholder-card h3 {
+  margin-top: 0;
+  color: #0f8ec7;
+}
+
+.placeholder-card p {
+  color: #5c6b7a;
+}
+
+@media (max-width: 768px) {
+  .content-card {
+    padding: 1rem;
+  }
+
+  .table-block {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .header-title {
+    font-size: 1.1rem;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
