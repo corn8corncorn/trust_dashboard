@@ -13,6 +13,7 @@
 
       <div class="content-area">
         <HomeView v-if="activePage === 'home'" :login-time="loginTime" />
+        <BasicDataView v-else-if="activePage === 'profile'" />
         <PlaceholderPanel
           v-else
           :title="getPageTitle(activePage)"
@@ -25,6 +26,7 @@
 <script>
 import LoginView from './views/LoginView.vue';
 import HomeView from './views/HomeView.vue';
+import BasicDataView from './views/BasicDataView.vue';
 import AppHeader from './components/AppHeader.vue';
 import NavigationTabs from './components/NavigationTabs.vue';
 import PlaceholderPanel from './components/PlaceholderPanel.vue';
@@ -34,6 +36,7 @@ export default {
   components: {
     LoginView,
     HomeView,
+    BasicDataView,
     AppHeader,
     NavigationTabs,
     PlaceholderPanel
