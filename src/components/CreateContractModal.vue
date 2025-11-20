@@ -684,12 +684,14 @@
           <Row :gutter="16">
             <Col span="12">
               <FormItem label="分潤比率">
-                <Input
-                  v-model="formData.internalProfitRate"
-                  placeholder="輸入方塊"
-                  clearable
-                />
-                <span style="margin-left: 8px">%</span>
+                <div class="inline-field">
+                  <Input
+                    v-model="formData.internalProfitRate"
+                    placeholder="輸入方塊"
+                    clearable
+                  />
+                  <span>%</span>
+                </div>
               </FormItem>
             </Col>
             <Col span="12">
@@ -720,12 +722,11 @@
             </Col>
             <Col span="12">
               <FormItem label="分潤比率">
-                <div style="display: flex; align-items: center; gap: 8px">
+                <div class="inline-field">
                   <Input
                     v-model="formData.externalProfitRate"
                     placeholder="輸入方塊"
                     clearable
-                    style="flex: 1"
                   />
                   <span>%</span>
                 </div>
@@ -1026,7 +1027,7 @@ export default {
         {
           title: "身分證字號",
           key: "idNumber",
-          width: 150,
+          width: 180,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1046,7 +1047,7 @@ export default {
         {
           title: "委託人",
           key: "clientName",
-          width: 150,
+          width: 200,
           align: "center",
           render: (h, params) => {
             return h(
@@ -1114,7 +1115,7 @@ export default {
         {
           title: "電話一",
           key: "phone1",
-          width: 120,
+          width: 150,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1130,7 +1131,7 @@ export default {
         {
           title: "電話二",
           key: "phone2",
-          width: 120,
+          width: 150,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1146,7 +1147,7 @@ export default {
         {
           title: "戶籍地址",
           key: "registeredAddress",
-          minWidth: 200,
+          minWidth: 400,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1162,7 +1163,7 @@ export default {
         {
           title: "通訊地址",
           key: "mailingAddress",
-          minWidth: 200,
+          minWidth: 400,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1203,7 +1204,7 @@ export default {
         {
           title: "統一編號",
           key: "taxId",
-          width: 150,
+          width: 180,
           align: "center",
           render: (h, params) => {
             return h(
@@ -1270,7 +1271,7 @@ export default {
         {
           title: "戶籍地址",
           key: "registeredAddress",
-          minWidth: 200,
+          minWidth: 400,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1286,7 +1287,7 @@ export default {
         {
           title: "電話一",
           key: "phone1",
-          width: 120,
+          width: 150,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1302,7 +1303,7 @@ export default {
         {
           title: "電話二",
           key: "phone2",
-          width: 120,
+          width: 150,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1372,7 +1373,7 @@ export default {
         {
           title: "統一編號",
           key: "taxId",
-          width: 150,
+          width: 180,
           align: "center",
           render: (h, params) => {
             return h(
@@ -1455,7 +1456,7 @@ export default {
         {
           title: "登記地址",
           key: "registeredAddress",
-          minWidth: 200,
+          minWidth: 400,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1471,7 +1472,7 @@ export default {
         {
           title: "電話一",
           key: "phone1",
-          width: 120,
+          width: 150,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1487,7 +1488,7 @@ export default {
         {
           title: "電話二",
           key: "phone2",
-          width: 120,
+          width: 150,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1512,7 +1513,7 @@ export default {
         {
           title: "統一編號",
           key: "taxId",
-          width: 150,
+          width: 180,
           align: "center",
           render: (h, params) => {
             return h(
@@ -1579,7 +1580,7 @@ export default {
         {
           title: "電話一",
           key: "phone1",
-          width: 120,
+          width: 150,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1595,7 +1596,7 @@ export default {
         {
           title: "電話二",
           key: "phone2",
-          width: 120,
+          width: 150,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1611,7 +1612,7 @@ export default {
         {
           title: "戶籍地址",
           key: "registeredAddress",
-          minWidth: 200,
+          minWidth: 400,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1627,7 +1628,7 @@ export default {
         {
           title: "通訊地址",
           key: "mailingAddress",
-          minWidth: 200,
+          minWidth: 400,
           align: "center",
           render: (h, params) => {
             return h("Input", {
@@ -1684,14 +1685,19 @@ export default {
                     h(
                       "Button",
                       {
-                        props: { size: "small" },
+                        props: {
+                          type: "primary",
+                          size: "small",
+                          icon: "ios-search",
+                          loading: this.loading,
+                        },
                         on: {
                           click: () => {
                             this.queryLandRegion(params.index);
                           },
                         },
                       },
-                      "查詢"
+                      []
                     ),
                   ]
                 ),
@@ -2396,5 +2402,15 @@ export default {
     max-height: calc(100vh - 200px);
     overflow-y: auto;
   }
+}
+
+.inline-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inline-field span {
+  white-space: nowrap;
 }
 </style>
