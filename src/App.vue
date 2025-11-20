@@ -14,45 +14,45 @@
       <div class="content-area">
         <HomeView v-if="activePage === 'home'" :login-time="loginTime" />
         <BasicDataView v-else-if="activePage === 'profile'" />
-        <PlaceholderPanel
-          v-else
-          :title="getPageTitle(activePage)"
-        />
+        <SystemSettingsView v-else-if="activePage === 'settings'" />
+        <PlaceholderPanel v-else :title="getPageTitle(activePage)" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import LoginView from './views/LoginView.vue';
-import HomeView from './views/HomeView.vue';
-import BasicDataView from './views/BasicDataView.vue';
-import AppHeader from './components/AppHeader.vue';
-import NavigationTabs from './components/NavigationTabs.vue';
-import PlaceholderPanel from './components/PlaceholderPanel.vue';
+import LoginView from "./views/LoginView.vue";
+import HomeView from "./views/HomeView.vue";
+import BasicDataView from "./views/BasicDataView.vue";
+import SystemSettingsView from "./views/SystemSettingsView.vue";
+import AppHeader from "./components/AppHeader.vue";
+import NavigationTabs from "./components/NavigationTabs.vue";
+import PlaceholderPanel from "./components/PlaceholderPanel.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     LoginView,
     HomeView,
     BasicDataView,
+    SystemSettingsView,
     AppHeader,
     NavigationTabs,
-    PlaceholderPanel
+    PlaceholderPanel,
   },
   data() {
     return {
       isAuthenticated: false,
       loginTime: null,
-      activePage: 'home',
+      activePage: "home",
       navItems: [
-        { label: '首頁', value: 'home' },
-        { label: '基本資料', value: 'profile' },
-        { label: '報表', value: 'report' },
-        { label: '系統設定', value: 'settings' },
-        { label: '信託系統', value: 'trust' }
-      ]
+        { label: "首頁", value: "home" },
+        { label: "基本資料", value: "profile" },
+        { label: "報表", value: "report" },
+        { label: "系統設定", value: "settings" },
+        { label: "信託系統", value: "trust" },
+      ],
     };
   },
   methods: {
@@ -62,16 +62,15 @@ export default {
     },
     handleLogout() {
       this.isAuthenticated = false;
-      this.activePage = 'home';
+      this.activePage = "home";
     },
     handlePageChange(page) {
       this.activePage = page;
     },
     getPageTitle(page) {
       const found = this.navItems.find((item) => item.value === page);
-      return found ? found.label : '功能頁';
-    }
-  }
+      return found ? found.label : "功能頁";
+    },
+  },
 };
 </script>
-

@@ -6,7 +6,12 @@
         <h2>信託管理系統</h2>
         <p>請先登入以進行操作</p>
       </div>
-      <Form ref="loginForm" :model="form" :rules="rules" @submit.native.prevent="handleSubmit">
+      <Form
+        ref="loginForm"
+        :model="form"
+        :rules="rules"
+        @submit.native.prevent="handleSubmit"
+      >
         <FormItem prop="username">
           <Input
             v-model="form.username"
@@ -25,7 +30,7 @@
             prefix="ios-lock"
           />
         </FormItem>
-        <Button type="primary" long size="large" @click="handleSubmit">
+        <Button type="primary" html-type="submit" long size="large">
           登入
         </Button>
       </Form>
@@ -35,30 +40,30 @@
 
 <script>
 export default {
-  name: 'LoginView',
+  name: "LoginView",
   data() {
     return {
       form: {
-        username: '',
-        password: ''
+        username: "",
+        password: "",
       },
       rules: {
-        username: [{ required: true, message: '請輸入帳號', trigger: 'blur' }],
-        password: [{ required: true, message: '請輸入密碼', trigger: 'blur' }]
-      }
+        username: [{ required: true, message: "請輸入帳號", trigger: "blur" }],
+        password: [{ required: true, message: "請輸入密碼", trigger: "blur" }],
+      },
     };
   },
   methods: {
     handleSubmit() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.$emit('login', {
-            username: this.form.username
+          this.$emit("login", {
+            username: this.form.username,
           });
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -84,4 +89,3 @@ export default {
   color: #7b8a9c;
 }
 </style>
-
